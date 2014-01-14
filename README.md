@@ -1,2 +1,2 @@
-product_parser
+product-parser
 ==============
