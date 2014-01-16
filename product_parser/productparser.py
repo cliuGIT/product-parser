@@ -128,6 +128,8 @@ def get(url):
         title = title.replace('&nbsp;', '').strip()
         if not (title and price and srcs):
             logger.error('Parse error: %s', url)
+    else:
+        logger.debug('Unknow\t%s', url)
     return title, price, srcs
 
 

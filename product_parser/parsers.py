@@ -1,8 +1,4 @@
 import re
-import logging
-
-
-logger = logging.getLogger('ProductParser')
 
 __author__ = 'cliu'
 

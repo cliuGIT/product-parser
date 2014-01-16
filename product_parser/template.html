@@ -1,9 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Test for Product Parser</title>
+    <style type="text/css">
+        body {font-family: Tahama, Verdana, "Microsoft YaHei", serif; font-size: 16px;}
+        input {border: 1px solid #CCC; padding: 8px;}
+        img {width: 200px; height: 200px;}
+    </style>
 </head>
 <body>
+<p>
+    <label for="url">URL</label><br />
+    <input type="text" id="url" size="100" />
+</p>
 
+<p>
+    <label for="title">名称</label><br />
+    <input type="text" id="title" size="100" />
+</p>
+
+<p>
+    <label for="price">价格</label><br />
+    <input type="text" id="price"  />
+</p>
+
+<div id="imgs"></div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    var url = $('#url');
+    var title = $('#title');
+    var price = $('#price');
+    var imgs = $('#imgs');
+    
+    function post_json(url, data, callback_success){
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: data,
+            dataType: 'json',
+            success: callback_success
+        });
+    }
+
+    function got_product_info(json){
+        title.val(json.title);
+        price.val(json.price);
+        imgs.html('');
+        for (var i=0; i < json.srcs.length; i++)
+            imgs.append('<img src="' + json.srcs[i] +'">');
+    }
+
+    $(function(){
+        url.blur(function(){
+            if (url.val())
+                post_json('/product-parser', {'url': url.val()}, got_product_info);
+        });
+    });
+</script>
 </body>
 </html>
